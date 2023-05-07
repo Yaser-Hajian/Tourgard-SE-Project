@@ -1,0 +1,7 @@
+export * from "./Header"
+export * from "./HeroSection"
+export * from "./TourDetailBox"
+export * from "./Categories"
+export * from "./TransferCost"
+export * from "./TransferCard"
+export * from "./Footer"
