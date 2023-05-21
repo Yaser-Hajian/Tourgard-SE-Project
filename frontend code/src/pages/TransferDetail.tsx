@@ -1,9 +1,26 @@
-import { CarSelection } from "../components/CarSelection";
-import { PaymentBox } from "../components/PaymentBox";
+import { useApp } from "../proviers";
 import TextArea from "antd/es/input/TextArea";
+import { PaymentBox } from "../components/PaymentBox";
+import { CarSelection } from "../components/CarSelection";
 
 export const TransferDetail = () => {
   // States and Hooks
+  const {
+    firstName,
+    setFirstName,
+
+    lastName,
+    setLastName,
+
+    notes,
+    setNotes,
+
+    email,
+    setEmail,
+
+    phoneNumber,
+    setPhoneNumber,
+  } = useApp();
 
   // Render
   return (
@@ -33,6 +50,8 @@ export const TransferDetail = () => {
                 <input
                   type="text"
                   placeholder="نام خانوادگی"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="px-3 py-3 relative rounded text-sm w-full border-none"
                 />
               </div>
@@ -49,6 +68,8 @@ export const TransferDetail = () => {
                 <input
                   type="text"
                   placeholder="نام"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="px-3 py-3 border-none focus:border-transparent focus:ring-0 relative  rounded text-sm  w-full"
                 />
               </div>
@@ -68,6 +89,8 @@ export const TransferDetail = () => {
                 <input
                   type="text"
                   placeholder="ایمیل"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="px-3 py-3 border-none focus:border-transparent focus:ring-0 relative  rounded text-sm  w-full"
                 />
               </div>
@@ -84,6 +107,8 @@ export const TransferDetail = () => {
                 <input
                   type="text"
                   placeholder="شماره تماس"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   className="px-3 py-3 border-none focus:border-transparent focus:ring-0 relative  rounded text-sm  w-full"
                 />
               </div>
@@ -91,6 +116,8 @@ export const TransferDetail = () => {
             <div dir="rtl" className="flex h-32 w-full flex-wrap mb-3">
               <TextArea
                 placeholder="توضیحات..."
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
                 className="h-full px-3 placeholder:text-gray-500 py-3 placeholder:align-text-top rounded-none text-sm border border-primary-gray font-vazir"
               />
             </div>

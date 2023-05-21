@@ -1,14 +1,16 @@
 import { Checkbox, Button } from "antd";
-import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "../proviers";
 
 export const PaymentBox = () => {
   // States and Hooks
   const navigate = useNavigate();
+  const { createReservation } = useApp();
 
   // Methods
-  const onChange = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
+  const create = async () => {
+    await createReservation();
+    navigate("/payment");
   };
 
   return (
@@ -78,10 +80,7 @@ export const PaymentBox = () => {
       </div>
 
       <div className="flex justify-between mt-6">
-        <Checkbox
-          className="font-vazir text-primary-placeholder "
-          onChange={onChange}
-        >
+        <Checkbox className="font-vazir text-primary-placeholder ">
           با شرایط استفاده از خدمات موافقم
         </Checkbox>
         <img src="./assets/icons/message-question.svg" alt="" />
@@ -96,7 +95,7 @@ export const PaymentBox = () => {
         dir="rtl"
         type="primary"
         className="flex justify-between items-center h-14  my-5 text-white text-xl"
-        onClick={() => navigate("/payment")}
+        onClick={create}
       >
         <div className="flex justify-between items-center ">
           <div className="flex">

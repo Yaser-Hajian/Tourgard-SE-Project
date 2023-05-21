@@ -12,6 +12,12 @@ const AppProvider = ({ children }) => {
   const [returnTime, setReturnTime] = useState("");
   const [cars, setCars] = useState([]);
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [notes, setNotes] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   //   Methods
   const search = async () => {
     const { data } = await axios.post(
@@ -19,6 +25,18 @@ const AppProvider = ({ children }) => {
     );
     setCars(data);
   };
+
+  const createReservation = async () =>
+    await axios.post("http://localhost:4000/reservation/create", {
+      origin: origin,
+      destination: dest,
+      pick_up_date: pickTime,
+      pick_up_time: returnTime,
+      f_name: lastName,
+      l_name: firstName,
+      email: email,
+      phone_number: phoneNumber,
+    });
 
   // Binding
   const value = {
@@ -32,7 +50,19 @@ const AppProvider = ({ children }) => {
     setReturnTime,
 
     search,
+    createReservation,
     cars,
+
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    notes,
+    setNotes,
+    email,
+    setEmail,
+    phoneNumber,
+    setPhoneNumber,
   };
 
   // Render
