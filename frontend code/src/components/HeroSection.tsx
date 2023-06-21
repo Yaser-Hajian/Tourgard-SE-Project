@@ -4,7 +4,7 @@ export const HeroSection = () => {
   return (
     <div className="flex w-full items-center justify-between h-full gap-x-10">
       <div className="w-1/2 h-full">
-        <img src="./assets/images/hero-guy.svg" alt="" />
+        <img src="./assets/images/hero-guy.png" alt="" />
       </div>
       <div className="flex flex-col w-1/2 mr-8 space-y-24 h-full ">
         <h1

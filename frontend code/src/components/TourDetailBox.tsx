@@ -1,6 +1,6 @@
 import { Button } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-multi-date-picker/styles/colors/red.css";
@@ -19,14 +19,20 @@ export const TourDetailBox = () => {
     setPickTime,
     returnTime,
     setReturnTime,
-    search,
+    searchReservation,
+    setReservationData
   } = useApp();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setReservationData({})
+  }, [])
+  
 
   // Methods
   const navigateToDetail = async () => {
     setLoading(true);
-    await search();
+    await searchReservation();
     navigate("/transfer-detail");
     setLoading(false);
   };
@@ -47,8 +53,7 @@ export const TourDetailBox = () => {
       <div className="flex h-14 w-full justify-center my-5 items-center gap-3">
         <div
           dir="rtl"
-          className="flex justify-center items-center h-full flex-1 gap-x-1 px-5 border border-solid border-primary-gray"
-        >
+          className="flex justify-center items-center h-full flex-1 gap-x-1 px-5 border border-solid border-primary-gray">
           <img className="" src="./assets/icons/arrow-bottom.svg" alt="" />
           <input
             dir="rtl"
@@ -64,8 +69,7 @@ export const TourDetailBox = () => {
 
         <div
           dir="rtl"
-          className="flex justify-center items-center h-full flex-1 gap-x-1 px-5 border border-solid border-primary-gray"
-        >
+          className="flex justify-center items-center h-full flex-1 gap-x-1 px-5 border border-solid border-primary-gray">
           <img className="" src="./assets/icons/arrow-bottom.svg" alt="" />
           <input
             dir="rtl"
@@ -82,8 +86,7 @@ export const TourDetailBox = () => {
         <div
           dir="rtl"
           className="flex justify-between items-center w-full border border-solid border-primary-gray px-2"
-          onChange={(e) => setStartDate}
-        >
+          onChange={(e) => setStartDate}>
           <div className="flex w-full h-full items-center gap-x-2">
             <img src="./assets/icons/calendar.svg" alt="" />
             <span>تاریخ</span>
@@ -93,8 +96,7 @@ export const TourDetailBox = () => {
 
         <div
           dir="rtl"
-          className="flex justify-between items-center w-full font-vazir border border-solid border-primary-gray px-2"
-        >
+          className="flex justify-between items-center w-full font-vazir border border-solid border-primary-gray px-2">
           <div className="flex items-center justify-center gap-x-2">
             <img src="./assets/icons/plus.svg" alt="" />
             <span>برگشت</span>
@@ -107,15 +109,14 @@ export const TourDetailBox = () => {
       </div>
       <div className="flex">
         <div className="w-1/2"></div>
-        <Button
-          dir="rtl"
-          loading={loading}
-          onClick={navigateToDetail}
-          className="flex justify-center items-center h-14 w-1/2 my-5 font-vazir text-xl"
-          type="primary"
-        >
-          جست و جو...
-        </Button>
+          <Button
+            dir="rtl"
+            loading={loading}
+            onClick={()=>navigateToDetail()}
+            className="flex justify-center items-center h-14 w-1/2 my-5 font-vazir text-xl"
+            type="primary">
+            جست و جو...
+          </Button>
       </div>
     </div>
   );

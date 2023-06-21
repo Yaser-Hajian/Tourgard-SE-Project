@@ -9,7 +9,7 @@ export const PaymentBox = () => {
 
   // Methods
   const create = async () => {
-    await createReservation();
+    // await createReservation();
     navigate("/payment");
   };
 
