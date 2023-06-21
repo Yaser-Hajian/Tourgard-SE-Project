@@ -1,54 +1,47 @@
+import React, { useState } from "react";
 import { Button, Image } from "antd";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useApp } from "../proviers";
-import { showToast } from "../utils/toastifyPromise";
 
-const Payment = () => {
-  // States and Hooks
+export default function OrderDetails() {
+  const [uuid, setUuid] = useState("");
   const navigate = useNavigate();
 
-  const {
-    createReservation,
-    reservationData
-  } = useApp();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  
-  console.log('reservation :>> ', reservationData);
-  // Render
+  const { findReservation, reservationData } = useApp();
+  console.log('reservationData :>> ', reservationData);
   return (
     <div className="bg-primary-background">
       <div className="pt-10">
-        <div className="w-fit mx-auto bg-white shadow-sm rounded-md">
+        <div
+          className={`w-fit mx-auto bg-white shadow-sm rounded-md `}>
           <Image
             src="./assets/images/bg-payment-success.svg"
             preview={false}
             draggable={false}
           />
-          <div className={`${ reservationData.origin&&"hidden"} flex justify-evenly pb-7`}>
+
+          {/* enter code */}
+          <div className={`flex w-full flex-col justify-center items-center ${reservationData.origin && "hidden"}`}>
+            <input
+              type="text"
+              placeholder="کد پیگیری را وارد کنید"
+              value={uuid}
+              onChange={(e) => setUuid(e.target.value)}
+              className="px-3 py-3 relative rounded text-sm text-right border-none "
+            />
             <Button
               className="my-4 mx-auto"
               type="primary"
               size="large"
-              onClick={() => createReservation()}>
-              موفق
-            </Button>
-            <Button
-              className="my-4 mx-auto bg-red-400"
-              type="primary"
-              size="large"
-              onClick={() => {navigate("/");showToast("پرداخت ناموفق بود لطفا دوباره تلاش کنید","error")}}>
-              ناموفق
+              onClick={() => findReservation(uuid)}>
+              جست و جو
             </Button>
           </div>
-          <div className={`${!reservationData?.customer?.phone_number&&"hidden"}`}>
+          {/* show result */}
+          <div className={`${!reservationData.origin && "hidden"}`}>
             <div className="p-2 text-center bg-white">
               <div className="text-2xl text-primary-green-3 py-3">
-                پرداخت انجام شد
+                جزئیات سفارش
               </div>
               <div className="flex items-center justify-between px-20 py-3 border-0 border-b border-solid border-gray-300">
                 <div>{reservationData.origin}</div>
@@ -58,9 +51,17 @@ const Payment = () => {
                 <div>{reservationData.destination}</div>
                 <div>مقصد</div>
               </div>
+              <div className="flex items-center justify-between px-20 py-3 border-0 border-b border-solid border-gray-300">
+                <div>{undefined}</div>
+                <div>نوع ماشین</div>
+              </div>{" "}
+              <div className="flex items-center justify-between px-20 py-3 border-0 border-b border-solid border-gray-300">
+                <div>{undefined}</div>
+                <div>ملزومات</div>
+              </div>{" "}
               <div className="flex items-center justify-between px-20 py-3">
-                <div>{reservationData.tracking_code}</div>
-                <div>شناسه پیگیری</div>
+                <div>{reservationData.language}</div>
+                <div>مترجم</div>
               </div>
             </div>
             <div className="text-center">
@@ -77,6 +78,4 @@ const Payment = () => {
       </div>
     </div>
   );
-};
-
-export default Payment;
+}
